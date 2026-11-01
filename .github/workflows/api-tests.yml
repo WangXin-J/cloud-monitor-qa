@@ -22,14 +22,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run API tests
-        run: pytest -q
+        run: pytest -q --junitxml=report.xml
 
-      - name: Collect test report
+      - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-test-report
-          path: |
-            pytest.log
-            .pytest_cache
+          name: pytest-report
+          path: report.xml
           if-no-files-found: ignore
